@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block contenido_que_cambia %}
+
+<form action="{% url 'CreaReceta' %}" method="post">{% csrf_token %}
+
+    {{creareceta.as_p}}
+
+    <div id="ingrediente-formset">
+
+      {{ ingrediente_formset.management_form }}
+
+      {% for form in ingrediente_formset %}
+
+        <div class="ingrediente-form">
+
+          {{form.as_p}}
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+    <button type="submit">Agregar Receta</button>
+
+  </form>
+
+  <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+    const formsetDiv = document.getElementById('ingrediente-formset');
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Agregar más ingredientes';
+    formsetDiv.appendChild(addButton);
+
+    addButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      const newForm = document.querySelectorAll('.ingrediente-form')[0].cloneNode(true);
+      formsetDiv.insertBefore(newForm, addButton);
+    });
+  });
+
+  </script>
+{% endblock contenido_que_cambia %}

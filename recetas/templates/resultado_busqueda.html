@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block contenido_que_cambia %}
+
+<h2>Resultados de Búsqueda para: "{{ titulo_busqueda }}"</h2>
+
+{% if recetas %}
+    <ul>
+    {% for receta in recetas %}
+        <li>
+            <strong>{{ receta.titulo }}</strong>: {{ receta.descripcion }}
+            <br>
+                <strong>Chef:</strong> {{ receta.chef.nombre }} {{ receta.chef.apellido }}
+            <br>
+                <strong>Ingredientes:</strong>
+            <ul>
+                {% for ingrediente in receta.ingredientes.all %}
+                    <li>{{ ingrediente.nombre }} - Cantidad: {{ ingrediente.cantidad }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No se encontraron recetas con ese título o descripción.</p>
+{% endif %}
+
+<a href="{% url 'BusquedaReceta' %}">Volver a buscar</a>
+
+
+{% endblock contenido_que_cambia %}

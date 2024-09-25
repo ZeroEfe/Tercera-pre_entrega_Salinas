@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block contenido_que_cambia %}
+
+    <form action="{% url 'CreaChef' %}" method="post">{% csrf_token %}
+
+        {{creachef.as_p}}
+
+        <button type="submit">Crear</button>
+
+    </form>
+
+
+{% endblock contenido_que_cambia %}
+    
